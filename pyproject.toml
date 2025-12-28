@@ -1,0 +1,107 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "chunky-monkey"
+version = "0.1.0"
+description = "Universal semantic text chunking library for LLM/RAG applications - prevents hallucinations through structural integrity"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "Jack Amichai" }]
+keywords = [
+    "chunking",
+    "text-splitting",
+    "llm",
+    "rag",
+    "retrieval-augmented-generation",
+    "nlp",
+    "semantic-search",
+    "embeddings",
+    "langchain",
+    "llamaindex"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Topic :: Text Processing",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+# Core has ZERO required dependencies - just Python stdlib
+dependencies = []
+
+[project.optional-dependencies]
+# OpenAI tokenizer support
+tiktoken = ["tiktoken>=0.5.0"]
+
+# HuggingFace tokenizer support  
+huggingface = ["transformers>=4.30.0"]
+
+# Semantic chunking with embeddings
+semantic = [
+    "numpy>=1.24.0",
+    "sentence-transformers>=2.2.0",
+]
+
+# Pydantic model support
+pydantic = ["pydantic>=2.0.0"]
+
+# All optional features
+all = [
+    "tiktoken>=0.5.0",
+    "transformers>=4.30.0",
+    "numpy>=1.24.0",
+    "sentence-transformers>=2.2.0",
+    "pydantic>=2.0.0",
+]
+
+# Development dependencies
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/JackAmichai/Chunky-Monkey"
+Documentation = "https://github.com/JackAmichai/Chunky-Monkey#readme"
+Repository = "https://github.com/JackAmichai/Chunky-Monkey"
+Issues = "https://github.com/JackAmichai/Chunky-Monkey/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/monkey"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+    "/README.md",
+    "/LICENSE",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_ignores = true
+strict = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
